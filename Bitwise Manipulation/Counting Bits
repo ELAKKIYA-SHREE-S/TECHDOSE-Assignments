@@ -1,0 +1,9 @@
+int* countBits(int n, int* rs){
+    int *a=(int*)malloc(sizeof(int)*(n+1));
+    *(a+0)=0;
+    for(int i=1;i<=n;i++){
+        *(a+i)=*(a+(i/2))+(i%2);
+    }
+    *rs=n+1;
+    return a;
+}
