@@ -1,1 +1,8 @@
-
+int rangeBitwiseAnd(int left, int right){
+    int ct=0;
+    while(left!=right){
+        left>>=1;right>>=1;ct++;
+    }
+    right<<=ct;
+    return right;
+}
