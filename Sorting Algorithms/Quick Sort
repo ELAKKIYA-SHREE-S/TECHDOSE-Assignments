@@ -1,67 +1,39 @@
-#include <iostream>
-using namespace std;
+#include <stdio.h>
 
-int partition(int* arr, int start, int end)
+void swap(int* a, int* b)
 {
-	int index = 0, pivotElement = arr[end], pivotIndex;
-	int* temp = new int[end - start + 1]; 
-	for (int i = start; i <= end; i++) 
-	{
-		if(arr[i] < pivotElement)
-		{
-			temp[index] = arr[i];
-			index++;
-		}
-	}
-
-	temp[index] = pivotElement; 
-	index++;
-
-	for (int i = start; i < end; i++)
-	{
-		if(arr[i] > pivotElement)
-		{
-			temp[index] = arr[i];
-			index++;
-		}
-	}
-	index = 0;
-	for (int i = start; i <= end; i++)
-	{
-		if(arr[i] == pivotElement)
-		{
-			pivotIndex = i;
-		}
-		arr[i] = temp[index];
-		index++;
-	}
-	return pivotIndex;
+	int t = *a;
+	*a = *b;
+	*b = t;
 }
-void quickSort(int* arr, int start, int end)
+int partition(int arr[], int low, int high)
 {
-	if(start < end)
-	{
-		int partitionIndex = partition(arr, start, end);
-		quickSort(arr, start, partitionIndex - 1);
-		quickSort(arr, partitionIndex + 1, end); 
+	int pivot = arr[high];
+	int i = (low - 1);
+	for (int j = low; j <= high - 1; j++) {
+		if (arr[j] < pivot) {
+			i++;
+			swap(&arr[i], &arr[j]);
+		}
 	}
-	return;
+	swap(&arr[i + 1], &arr[high]);
+	return (i + 1);
+}
+void quickSort(int arr[], int low, int high)
+{
+	if (low < high) {
+		int pi = partition(arr, low, high);
+		quickSort(arr, low, pi - 1);
+		quickSort(arr, pi + 1, high);
+	}
 }
 int main()
 {
-	int size = 9;
-	int arr[size] = {5, 12, 7, 1, 13, 2 ,23, 11, 18};
-	cout << "Unsorted array : ";
-	for (int i = 0; i < size; i++)
-	{
-		cout << arr[i] << " ";
-	}
-	printf("\n");
-	quickSort(arr, 0, size - 1);
-	cout << "Sorted array : ";
-	for (int i = 0; i < size; i++)
-	{
-	cout << arr[i] << " ";
-	}
+	int arr[] = { 10, 7, 8, 9, 1, 5 };
+	int N = sizeof(arr) / sizeof(arr[0]);
+	quickSort(arr, 0, N - 1);
+	printf("Sorted array: \n");
+	for (int i = 0; i < N; i++)
+		printf("%d ", arr[i]);
 	return 0;
 }
