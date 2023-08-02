@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int maximumGap(vector<int>& a) {
+        int md=-1;
+        if(a.size()<2){md=0;}
+        else{
+            sort(a.begin(),a.end());
+            for(int i=1;i<a.size();i++){
+                if(a[i]-a[i-1]>md){md=a[i]-a[i-1];}
+            }
+        }
+        return md;
+    }
+};
