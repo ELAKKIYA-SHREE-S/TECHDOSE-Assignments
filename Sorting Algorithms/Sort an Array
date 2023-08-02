@@ -1,0 +1,12 @@
+int cmp(const void *a,const void*b){
+    return (*(int*)a-*(int*)b);
+}
+int* sortArray(int* n, int s, int* rs){
+    *rs=s;
+    qsort(n,s,sizeof(int),cmp);
+    int *a=(int*)malloc(sizeof(int)*s),t;
+    for(int i=0;i<s;i++){
+        *(a+i)=n[i];
+    }
+    return a;
+}
