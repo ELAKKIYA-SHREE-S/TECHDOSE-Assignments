@@ -1,0 +1,11 @@
+class Solution(object):
+    def twoSum(self, nums, target):
+        a=[3,5]
+        for i in range(0,len(nums)):
+            diff=target-nums[i]
+            if diff in nums:
+                j=nums.index(diff)
+                if j!=i:
+                    a[0]=i
+                    a[1]=j
+                    return a;
