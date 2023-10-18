@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+void dfs(int node, vector<int> adj[], vector<int>& vis, vector<int>& dfsResult) {
+    vis[node] = 1;
+    dfsResult.push_back(node);
+    for (auto it : adj[node]) {
+        if (!vis[it]){dfs(it, adj, vis, dfsResult);}
+    }
+}
+vector<int> dfsTraversal(int V, vector<int> adj[]) {
+    vector<int> vis(V, 0);
+    vector<int> dfsResult;
+    for (int i = 0; i < V; i++) {
+        if (!vis[i]){dfs(i, adj, vis, dfsResult);}
+    }
+    return dfsResult;
+}
+int main() {
+    vector<int> adj[] = {{1, 4},{0, 2, 3},{1},{1},{0}};
+    vector<int> ans = dfsTraversal(5, adj);
+    for (int i = 0; i < ans.size(); i++) {cout << ans[i] << " ";}
+    return 0;
+}
