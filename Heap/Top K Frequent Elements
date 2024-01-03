@@ -1,0 +1,20 @@
+class Solution {
+public:
+    static int cmp(pair<int,int>&a,pair<int,int>&b){
+        if(a.second>b.second){return 1;}
+        return 0;
+    }
+    vector<int> topKFrequent(vector<int>& a, int k) {
+        map<int,int>mp;
+        for(int i=0;i<a.size();i++){
+            mp[a[i]]++;
+        }
+        vector<pair<int, int>> mtv(mp.begin(), mp.end());
+        sort(mtv.begin(),mtv.end(),cmp);
+        vector<int>r;
+        for(int i=0;i<k;i++){
+            r.push_back(mtv[i].first);
+        }
+        return r;
+    }
+};
