@@ -1,0 +1,24 @@
+class Solution {
+public:
+    static int cmp(pair<int,int>&a,pair<int,int>&b){
+        if(a.second>b.second){return 1;}
+        else{return 0;}
+    }
+    string frequencySort(string s) {
+        string r;
+        map<int,int,greater<int>>tot;
+        for(int i=0;i<s.size();i++){
+            if(s[i]>='a'&&s[i]<='z'){tot[s[i]-97]++;}
+            else if(s[i]>='A'&&s[i]<='Z'){tot[(s[i]-65)+36]++;}
+            else if(s[i]>='0'&&s[i]<='9'){tot[(s[i]-48)+26]++;}
+        }
+        vector<pair<int,int>>vtot(tot.begin(),tot.end());
+        sort(vtot.begin(),vtot.end(),cmp);
+        for(auto x:vtot){
+            if(x.first>=26&&x.first<=35){for(int i=0;i<x.second;i++){r+=(x.first-26)+48;}}
+            else if(x.first>=36){for(int i=0;i<x.second;i++){r+=((x.first-36) + 'A');}}
+            else{for(int i=0;i<x.second;i++){r+=(x.first + 'a');}}
+        }
+        return r;
+    }
+};
