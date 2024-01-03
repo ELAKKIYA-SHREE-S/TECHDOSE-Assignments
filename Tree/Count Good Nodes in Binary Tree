@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int goodNodes(TreeNode* root) {
+        stack<pair<TreeNode*,int>>s;
+        s.push({root,root->val});
+        int goodnodes=0;
+        while(!s.empty()){
+            auto[node,maxval]=s.top();
+            s.pop();
+            if(node->val>=maxval)
+            {
+                goodnodes++;
+            }
+            if(node->left)
+            {
+                s.push({node->left,max(node->val,maxval)});
+            }
+            if(node->right)
+            {
+                s.push({node->right,max(node->val,maxval)});
+            }
+        }
+        return goodnodes;      
+    }
+};
