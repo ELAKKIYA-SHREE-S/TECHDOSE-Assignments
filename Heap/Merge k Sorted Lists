@@ -1,0 +1,29 @@
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        priority_queue<int,vector<int>,greater<int>>pq;
+        if(lists.size()==0) return NULL;
+        for(int i=0;i<lists.size();i++){
+            ListNode* p=lists[i];
+            while(p){
+                pq.push(p->val);
+                p=p->next;
+            }
+        }
+        if(pq.size()==0) return NULL;
+        ListNode* head = new ListNode;
+        head->val=pq.top();
+        head->next=NULL;
+        pq.pop();
+        ListNode* p=head;
+        while(pq.size()>0){
+            ListNode* tmp=new ListNode;
+            p->next=tmp;
+            tmp->val=pq.top();
+            tmp->next=NULL;
+            pq.pop();
+            p=tmp;
+        }
+        return head;
+    }
+};
