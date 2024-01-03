@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        int ct=0,sr=-1,er=-1,sc=-1,ec=-1,c=0,oc=0,dec=-1;
+        for(int i=0;i<matrix.size();i++){
+            c=0;oc=0;
+            for(int j=0;j<matrix[0].size();j++){
+                if(matrix[i][j]=='1'){oc++;}
+                if(matrix[i][j]=='1'&&c==0){
+                    c++;sc=j;sr=i;er=i;
+                }if(((matrix[i][j]=='0'||j==matrix[0].size()-1)&&c!=0)||(j==matrix[0].size()-1&&oc==matrix[0].size())){
+                    c=0;
+                    if(matrix[i][j]=='1'){ec=j;}
+                    else{ec=j-1;}
+                    if((((ec-sc)+1)*((matrix.size()-sr)+1))>ct){
+                        while(sc<=ec){
+                            dec=ec;
+                            for(int l=sr;l<matrix.size();l++){
+                                er=l;
+                                for(int k=sc;k<=dec;k++){
+                                    if(matrix[l][k]=='0'){
+                                        if(k!=sc){dec=k-1;break;}
+                                        else if(k==sc){er=l-1;c++;break;}
+                                    }
+                                }if((((dec-sc)+1)*((er-sr)+1))>ct){ct=((dec-sc)+1)*((er-sr)+1);}
+                                if(c!=0){c=0;break;}
+                            }sc++;
+                        }
+                    }
+                }
+            }
+        }
+        return ct;
+    }
+};
